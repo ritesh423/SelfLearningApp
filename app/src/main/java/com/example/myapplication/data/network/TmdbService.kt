@@ -1,4 +1,4 @@
-package com.example.myapplication.network
+package com.example.myapplication.data.network
 
 import com.example.myapplication.utils.ApiConstants
 import retrofit2.http.GET

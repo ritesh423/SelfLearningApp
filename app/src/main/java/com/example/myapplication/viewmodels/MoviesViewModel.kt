@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.network.Movie
-import com.example.myapplication.network.tmdbService
+import com.example.myapplication.data.network.Movie
+import com.example.myapplication.data.network.tmdbService
 import com.example.myapplication.repository.MovieRepository
 import kotlinx.coroutines.launch
 
