@@ -2,8 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapplication.MainActivity" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+
+    <item android:id="@+id/popularFragment"
+        android:title="Popular News"
+        android:icon="@drawable/ic_trending_up"
+        />
+
+    <item android:id="@+id/favoriteFragment"
+        android:title="Favorite News"
+        android:icon="@drawable/ic_favorite"
+        />
+
+    <item android:id="@+id/searchFragment"
+        android:title="Search News"
+        android:icon="@drawable/ic_search"
+        />
 </menu>
