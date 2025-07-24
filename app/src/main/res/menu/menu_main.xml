@@ -3,17 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapplication.MainActivity" >
 
-    <item android:id="@+id/popularFragment"
+    <item android:id="@+id/menu_popular"
         android:title="Popular News"
         android:icon="@drawable/ic_trending_up"
         />
 
-    <item android:id="@+id/favoriteFragment"
+    <item android:id="@+id/menu_favorite"
         android:title="Favorite News"
         android:icon="@drawable/ic_favorite"
         />
 
-    <item android:id="@+id/searchFragment"
+    <item android:id="@+id/menu_search"
         android:title="Search News"
         android:icon="@drawable/ic_search"
         />

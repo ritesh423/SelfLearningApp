@@ -23,7 +23,7 @@ private var _binding: FragmentPopularBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MoviesViewModel by viewModels()
-    lateinit var adapter: MovieAdapter
+    private lateinit var adapter: MovieAdapter
 
 
     override fun onCreateView(

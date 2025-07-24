@@ -3,6 +3,7 @@ package com.example.myapplication.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
@@ -18,10 +19,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-        val navController = findNavController(R.id.fragment_container)
-        bottomNavigationView.setupWithNavController(navController)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragment_container) as NavHostFragment
 
+        // 2) Pull its NavController
+        val navController = navHostFragment.navController
+
+        // 3) Hook up your BottomNavigationView
+        binding.bottomNav.setupWithNavController(navController)
     }
 
 }
