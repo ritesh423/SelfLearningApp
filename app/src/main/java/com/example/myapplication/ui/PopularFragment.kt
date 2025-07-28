@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Visibility
 import com.example.myapplication.adapters.MovieAdapter
@@ -42,8 +43,8 @@ private var _binding: FragmentPopularBinding? = null
         adapter = MovieAdapter(onItemClick = {
             // todo @RITESH MOVE TO DETAILS FRAGEMNT WITH NECCESSARY ARGS
         })
+        binding.rvMovies.layoutManager= GridLayoutManager(requireContext(), 2)
         binding.rvMovies.adapter = adapter
-        binding.rvMovies.layoutManager= LinearLayoutManager(requireContext())
         viewModel.movies.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
             binding.pbLoading.visibility = View.GONE

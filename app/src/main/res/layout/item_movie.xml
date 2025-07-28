@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_movie_root"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app   ="http://schemas.android.com/apk/res-auto"
+    xmlns:tools ="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="12dp"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="2dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_view_project_icon_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="0dp">
+        <!-- Poster Image (2:3) -->
+        <ImageView
+            android:id="@+id/ivPoster"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="2:3"
+            tools:src="@drawable/ic_launcher_background" />
 
-            <ImageView
-                android:id="@+id/ivPoster"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="12dp"
-                android:scaleType="centerCrop"
-                android:contentDescription="poster"
-                tools:src="@drawable/ic_launcher_background" />
-
-
-        </androidx.cardview.widget.CardView>
-
-
+        <!-- Title -->
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/card_view_project_icon_container"
-            android:layout_toEndOf="@+id/card_view_project_icon_container"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textAppearance="?attr/textAppearanceSubtitle1"
-            android:textColor="#222222"
-            android:textSize="18sp" />
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintTop_toBottomOf="@id/ivPoster"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="The Shawshank Redemption" />
 
-        <TextView
+        <!-- Rating Chip -->
+        <com.google.android.material.chip.Chip
             android:id="@+id/tvRating"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTitle"
             android:layout_marginTop="4dp"
-            android:layout_toEndOf="@+id/card_view_project_icon_container"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="#777777"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+
+            android:text="8.7"
             android:textSize="14sp"
-            android:textAppearance="?attr/textAppearanceCaption"/>
+            app:chipIcon="@drawable/ic_star_24dp"
+            app:chipIconTint="@color/amber_700"
+            app:chipIconSize="16dp"
+            app:chipBackgroundColor="@color/white"
+            app:chipStrokeColor="@color/amber_700"
+            app:chipStrokeWidth="1dp"
+            app:chipCornerRadius="8dp"
+            tools:ignore="TouchTargetSizeCheck" />
 
-    </RelativeLayout>
-
-
-</androidx.cardview.widget.CardView>
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
