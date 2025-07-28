@@ -19,4 +19,4 @@ val retrofit: Retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
-val tmdbService: TmdbService = retrofit.create(TmdbService::class.java)
+val tmdbService: NewsApi = retrofit.create(NewsApi::class.java)

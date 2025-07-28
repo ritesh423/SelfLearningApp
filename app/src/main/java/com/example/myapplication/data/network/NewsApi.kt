@@ -1,22 +1,24 @@
 package com.example.myapplication.data.network
 
+import com.example.myapplication.data.model.MoviesResponse
 import com.example.myapplication.utils.ApiConstants
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface TmdbService {
+interface NewsApi {
     @GET("movie/popular")
     suspend fun getPopularMovies(
         @Query("api_key") apiKey: String = ApiConstants.API_KEY,
         @Query("page") page: Int = 1
     ): MoviesResponse
 
-//    @GET("search/movie")
-//    suspend fun searchMovies(
-//        @Query("api_key") apiKey: String =  ApiConstants.API_KEY,
-//        @Query("query") query: String
-//    ): MovieResponse
+    @GET("search/movie")
+    suspend fun searchMovies(
+        @Query("api_key") apiKey: String =  ApiConstants.API_KEY,
+        @Query("page") page : Int = 1,
+        @Query("query") query: String
+    ): MoviesResponse
 //
 //    @GET("movie/{id}")
 //    suspend fun getMovieDetails(

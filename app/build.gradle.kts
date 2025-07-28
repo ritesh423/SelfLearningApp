@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     kotlin("kapt")
+//    id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -54,9 +57,22 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
+
 // UI & image loading
     implementation(libs.glide)
     kapt(libs.compiler)
+
+    val room_version = "2.7.2"
+
+    implementation("androidx.room:room-runtime:$room_version")
+
+    // If this project uses any Kotlin source, use Kotlin Symbol Processing (KSP)
+    // See Add the KSP plugin to your project
+    kapt("androidx.room:room-compiler:$room_version")
+
+    // If this project only uses Java source, use the Java annotationProcessor
+    // No additional plugins are necessary
+    annotationProcessor("androidx.room:room-compiler:$room_version")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

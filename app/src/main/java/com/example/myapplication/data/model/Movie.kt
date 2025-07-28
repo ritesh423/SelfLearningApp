@@ -1,9 +1,18 @@
-package com.example.myapplication.data.network
+package com.example.myapplication.data.model
 
 
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+//@Entity(
+//    tableName = "articles"
+//)
+@Parcelize
 data class Movie(
+//    @PrimaryKey(autoGenerate = true)
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
@@ -32,4 +41,4 @@ data class Movie(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-)
+): Parcelable
