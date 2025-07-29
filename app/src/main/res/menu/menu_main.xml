@@ -1,20 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.myapplication.MainActivity" >
+    tools:context="com.example.myapplication.MainActivity">
 
-    <item android:id="@+id/menu_popular"
-        android:title="Popular News"
+    <item
+        android:id="@+id/menu_popular"
         android:icon="@drawable/ic_trending_up"
-        />
+        android:title="Popular Movies" />
 
-    <item android:id="@+id/menu_favorite"
-        android:title="Favorite News"
+    <item
+        android:id="@+id/menu_favorite"
         android:icon="@drawable/ic_favorite"
-        />
+        android:title="Favorite Movie" />
 
-    <item android:id="@+id/menu_search"
-        android:title="Search News"
+    <item
+        android:id="@+id/menu_search"
         android:icon="@drawable/ic_search"
-        />
+        android:title="Search Movie" />
+    <item
+        android:id="@+id/menu_top_rated"
+        android:icon="@drawable/ic_top_rated"
+        android:title="Top rated " />
 </menu>

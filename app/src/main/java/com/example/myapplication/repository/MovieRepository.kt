@@ -10,6 +10,11 @@ class MovieRepository(
 ) {
     suspend fun getPopularMovies(pageNo: Int) = apiService.getPopularMovies(page = pageNo)
 
+    suspend fun getTopRatedMovies(pageNo: Int) = apiService.getTopRatedMovies(page = pageNo)
+
+    suspend fun getMovieDetails(id: Int): MovieDetailsResponse =
+        apiService.getMovieDetails(id)
+
 //    suspend fun upsert(article : Movie) = db.getArticleDAO().upsert(article)
 //
 //    fun getFavoriteMovies() = db.getArticleDAO().getAllArticles()

@@ -24,4 +24,10 @@ class MoviesViewModel : ViewModel() {
         }
     }
 
+    fun getTopRatedMovies(pageNo: Int) {
+        viewModelScope.launch {
+            _movies.value = repository.getTopRatedMovies(pageNo).movies
+        }
+    }
+
 }
