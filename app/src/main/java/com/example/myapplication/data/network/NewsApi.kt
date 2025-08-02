@@ -1,5 +1,6 @@
 package com.example.myapplication.data.network
 
+import com.example.myapplication.data.model.MovieDetailsResponse
 import com.example.myapplication.data.model.MoviesResponse
 import com.example.myapplication.utils.ApiConstants
 import retrofit2.http.GET
@@ -23,7 +24,7 @@ interface NewsApi {
 
     @GET("movie/{id}")
     suspend fun getMovieDetails(
-        @Path("movie_id") id: Int,
+        @Path("id") id: Int,
         @Query("api_key") apiKey: String =  ApiConstants.API_KEY
     ): MovieDetailsResponse
 

@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.Visibility
 import com.example.myapplication.adapters.MovieAdapter
 import com.example.myapplication.databinding.FragmentPopularBinding
 import com.example.myapplication.viewmodels.MoviesViewModel
@@ -40,9 +39,11 @@ private var _binding: FragmentPopularBinding? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getPopularMovies(pageNo = 1)
-        adapter = MovieAdapter(onItemClick = {
-            // todo @RITESH MOVE TO DETAILS FRAGEMNT WITH NECCESSARY ARGS
-        })
+        adapter = MovieAdapter { movie ->
+            val action = PopularFragmentDirections.
+            actionMenuPopularToArticleFragment(movie.id)
+            findNavController().navigate(action)
+        }
         binding.rvMovies.layoutManager= GridLayoutManager(requireContext(), 2)
         binding.rvMovies.adapter = adapter
         viewModel.movies.observe(viewLifecycleOwner) { list ->

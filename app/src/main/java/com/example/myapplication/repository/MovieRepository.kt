@@ -1,6 +1,7 @@
 package com.example.myapplication.repository
 
 import com.example.myapplication.data.model.Movie
+import com.example.myapplication.data.model.MovieDetailsResponse
 import com.example.myapplication.data.network.NewsApi
 //import com.example.myapplication.database.ArticleDatabase
 
