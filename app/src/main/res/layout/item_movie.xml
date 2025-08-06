@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintDimensionRatio="2:3"
-            tools:src="@drawable/ic_launcher_background" />
+            />
 
         <!-- Title -->
         <TextView
@@ -38,7 +38,7 @@
             app:layout_constraintTop_toBottomOf="@id/ivPoster"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="The Shawshank Redemption" />
+            />
 
         <!-- Rating Chip -->
         <com.google.android.material.chip.Chip
@@ -58,7 +58,7 @@
             app:chipStrokeColor="@color/amber_700"
             app:chipStrokeWidth="1dp"
             app:chipCornerRadius="8dp"
-            tools:ignore="TouchTargetSizeCheck" />
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

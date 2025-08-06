@@ -72,7 +72,10 @@ dependencies {
 
     // If this project only uses Java source, use the Java annotationProcessor
     // No additional plugins are necessary
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    annotationProcessor(libs.room.compiler)
+
+    //Shimmer
+    implementation(libs.shimmer)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -84,4 +87,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.material.v1100)
+
+
 }
