@@ -1,6 +1,7 @@
 package com.example.myapplication.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.adapters.MovieAdapter
 import com.example.myapplication.databinding.FragmentPopularBinding
+import com.example.myapplication.viewmodels.MoviesUiState
 import com.example.myapplication.viewmodels.MoviesViewModel
 
 class PopularFragment : Fragment() {
 
     private var _binding: FragmentPopularBinding? = null
     private val binding get() = _binding!!
+    private val TAG = "PopularFragment"
 
     private val viewModel: MoviesViewModel by viewModels()
     private lateinit var adapter: MovieAdapter
@@ -31,15 +34,7 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1) ensure we see only shimmer at start
-        binding.rvMovies.visibility = View.GONE
-        binding.pbLoading.visibility = View.GONE
-        binding.shimmer.startShimmer()
-
-        // 2) kick off the network load
-        viewModel.getPopularMovies(pageNo = 1)
-
-        // 3) setup our adapter
+        // RecyclerView setup
         adapter = MovieAdapter { movie ->
             val action = PopularFragmentDirections
                 .actionMenuPopularToArticleFragment(movie.id)
@@ -48,15 +43,58 @@ class PopularFragment : Fragment() {
         binding.rvMovies.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvMovies.adapter = adapter
 
-        // 4) when the data arrives, swap out
-        viewModel.movies.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
-            binding.shimmer.apply {
-                stopShimmer()
-                visibility = View.GONE
+        // Initial UI state
+        Log.d(TAG, "onViewCreated: show shimmer & hide list")
+        binding.rvMovies.visibility = View.GONE
+        binding.pbLoading.visibility = View.GONE
+        binding.shimmer.visibility = View.VISIBLE
+        binding.shimmer.startShimmer()
+
+        // Observe UI state
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MoviesUiState.Loading -> {
+                    Log.d(TAG, "state=Loading → start shimmer")
+                    binding.rvMovies.visibility = View.GONE
+                    binding.shimmer.visibility = View.VISIBLE
+                    binding.shimmer.startShimmer()
+                }
+                is MoviesUiState.Success -> {
+                    Log.d(TAG, "state=Success → items=${state.data.size}; stop shimmer & show list")
+                    adapter.submitList(state.data)
+                    binding.shimmer.stopShimmer()
+                    binding.shimmer.visibility = View.GONE
+                    binding.rvMovies.visibility = View.VISIBLE
+                }
+                is MoviesUiState.Error -> {
+                    Log.d(TAG, "state=Error → ${state.message}; stop shimmer & keep list hidden")
+                    binding.shimmer.stopShimmer()
+                    binding.shimmer.visibility = View.GONE
+                    binding.rvMovies.visibility = View.GONE
+                    // TODO: show error UI / Snackbar here
+                }
             }
-            binding.rvMovies.visibility = View.VISIBLE
         }
+
+        // Trigger load AFTER observer is set
+        Log.d(TAG, "onViewCreated: calling getPopularMovies()")
+        viewModel.getPopularMovies(pageNo = 1 /*, minShimmerMs = 800L */)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // If still loading when returning to foreground, keep shimmer animating
+        if (binding.shimmer.visibility == View.VISIBLE && binding.rvMovies.visibility != View.VISIBLE) {
+            Log.d(TAG, "onStart: still loading → (re)start shimmer")
+            binding.shimmer.startShimmer()
+        }
+    }
+
+    override fun onStop() {
+        // Avoid running animation offscreen
+        Log.d(TAG, "onStop: stop shimmer to avoid offscreen anim")
+        binding.shimmer.stopShimmer()
+        super.onStop()
     }
 
     override fun onDestroyView() {

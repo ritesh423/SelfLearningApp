@@ -5,4 +5,5 @@
     <color name="amber_700">#FFA000</color>
     <color name="shimmer_base">#E0E0E0</color>
     <color name="shimmer_highlight">#F5F5F5</color>
+    <color name="material_grey_200">#FFEEEEEE</color>
 </resources>

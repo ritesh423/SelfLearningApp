@@ -25,7 +25,7 @@ interface NewsApi {
 
     @GET("movie/{id}")
     suspend fun getMovieDetails(
-        @Path("id") id: Int,
+        @Path("id") movieId: Int,
         @Query("api_key") apiKey: String =  ApiConstants.API_KEY
     ): MovieDetailsResponse
 
