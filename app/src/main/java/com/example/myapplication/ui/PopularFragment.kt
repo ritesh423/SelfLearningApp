@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.adapters.MovieAdapter
 import com.example.myapplication.databinding.FragmentPopularBinding
 import com.example.myapplication.viewmodels.MoviesUiState
@@ -73,6 +74,17 @@ class PopularFragment : Fragment() {
                     binding.rvMovies.visibility = View.GONE
                     // TODO: show error UI / Snackbar here
                 }
+            }
+        }
+
+        binding.chipGroupFilters.setOnCheckedStateChangeListener { _, checkedIds ->
+            val id = checkedIds.firstOrNull()
+            when (id) {
+                R.id.chipAll -> viewModel.applyLocalRatingFilter(minRating = null)
+                R.id.chip98  -> viewModel.applyLocalRatingFilter(minRating = 9.8)
+                R.id.chip9   -> viewModel.applyLocalRatingFilter(minRating = 9.0)
+                R.id.chip8   -> viewModel.applyLocalRatingFilter(minRating = 8.0)
+                R.id.chipDC  -> viewModel.loadByCompanyName(companyName = "dc") // server-side fetch
             }
         }
 
