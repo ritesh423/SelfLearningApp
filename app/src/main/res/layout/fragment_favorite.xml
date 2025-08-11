@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/favoriteFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Poster image -->
+    <ImageView
+        android:id="@+id/ivPoster"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="poster"
+        android:src="@drawable/posterimg1"/>
+
+    <!-- Movie title -->
+    <TextView
+        android:text="Demon Slayer: Kimetsu no Yaiba Infinity Castle (2025)"
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textStyle="bold"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <!-- Rating -->
+    <TextView
+        android:text="9.8 /10"
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:id="@+id/ivPoster2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="poster"
+        android:src="@drawable/posterimg2"/>
+
+    <!-- Movie title -->
+    <TextView
+        android:text="Kaiju No. 8 (2024)"
+        android:id="@+id/tvTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textStyle="bold"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <!-- Rating -->
+    <TextView
+        android:text="9 /10"
+        android:id="@+id/tvRating2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:textAppearance="?attr/textAppearanceCaption" />
+
+    <ImageView
+        android:id="@+id/ivPoster3"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="poster"
+        android:src="@drawable/posterimg3"/>
+
+    <!-- Movie title -->
+    <TextView
+        android:text="Demon Slayer: Kimetsu no Yaiba Infinity Castle (2025)"
+        android:id="@+id/tvTitle3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textStyle="bold"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <!-- Rating -->
+    <TextView
+        android:text="9.8 /10"
+        android:id="@+id/tvRating3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:textAppearance="?attr/textAppearanceCaption" />
+
+
+</LinearLayout>
+</ScrollView>
