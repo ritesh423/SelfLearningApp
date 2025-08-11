@@ -14,6 +14,7 @@ import com.example.myapplication.adapters.MovieAdapter
 import com.example.myapplication.databinding.FragmentPopularBinding
 import com.example.myapplication.viewmodels.MoviesUiState
 import com.example.myapplication.viewmodels.MoviesViewModel
+import com.google.android.material.chip.Chip
 
 class PopularFragment : Fragment() {
 
@@ -60,6 +61,7 @@ class PopularFragment : Fragment() {
                     binding.shimmer.visibility = View.VISIBLE
                     binding.shimmer.startShimmer()
                 }
+
                 is MoviesUiState.Success -> {
                     Log.d(TAG, "state=Success → items=${state.data.size}; stop shimmer & show list")
                     adapter.submitList(state.data)
@@ -67,6 +69,7 @@ class PopularFragment : Fragment() {
                     binding.shimmer.visibility = View.GONE
                     binding.rvMovies.visibility = View.VISIBLE
                 }
+
                 is MoviesUiState.Error -> {
                     Log.d(TAG, "state=Error → ${state.message}; stop shimmer & keep list hidden")
                     binding.shimmer.stopShimmer()
@@ -81,17 +84,40 @@ class PopularFragment : Fragment() {
             val id = checkedIds.firstOrNull()
             when (id) {
                 R.id.chipAll -> viewModel.applyLocalRatingFilter(minRating = null)
-                R.id.chip98  -> viewModel.applyLocalRatingFilter(minRating = 9.8)
-                R.id.chip9   -> viewModel.applyLocalRatingFilter(minRating = 9.0)
-                R.id.chip8   -> viewModel.applyLocalRatingFilter(minRating = 8.0)
-                R.id.chipDC  -> viewModel.loadByCompanyName(companyName = "dc") // server-side fetch
+                R.id.chip98 -> viewModel.applyLocalRatingFilter(minRating = 9.8)
+                R.id.chip9 -> viewModel.applyLocalRatingFilter(minRating = 9.0)
+                R.id.chip8 -> viewModel.applyLocalRatingFilter(minRating = 8.0)
+                R.id.chipDC -> viewModel.loadByCompanyName(companyName = "dc") // server-side fetch
             }
         }
+
+        binding.chipGroupFilters.isSingleSelection = false
+
+        binding.chip98.setOnClickListener { chip ->
+            (chip as Chip).isChecked = !chip.isChecked
+            if (chip.isChecked) {
+                applyFilter("9.8+")
+            } else {
+                clearFilter()
+            }
+        }
+
 
         // Trigger load AFTER observer is set
         Log.d(TAG, "onViewCreated: calling getPopularMovies()")
         viewModel.getPopularMovies(pageNo = 1 /*, minShimmerMs = 800L */)
     }
+
+    private fun applyFilter(filter: String) {
+        // Your sorting/filtering logic
+        Log.d("PopularFragment", "Applying filter: $filter")
+    }
+
+    private fun clearFilter() {
+        // Reset list to full data
+        Log.d("PopularFragment", "Clearing filter")
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -114,3 +140,4 @@ class PopularFragment : Fragment() {
         _binding = null
     }
 }
+
