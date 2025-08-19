@@ -3,6 +3,7 @@ package com.example.myapplication.data.network
 import com.example.myapplication.data.model.CompanySearchResponse
 import com.example.myapplication.data.model.MovieDetailsResponse
 import com.example.myapplication.data.model.MovieSearchResponse
+import com.example.myapplication.data.model.MovieVideosResponse
 import com.example.myapplication.data.model.MoviesResponse
 import com.example.myapplication.utils.ApiConstants
 import retrofit2.http.GET
@@ -51,4 +52,9 @@ interface NewsApi {
         @Query("api_key") apiKey: String = ApiConstants.API_KEY
     ): MoviesResponse
 
+    @GET("movie/{id}/videos")
+    suspend fun getMovieVideos(
+        @Path("id") id: Int,
+        @Query("api_key") apiKey: String = ApiConstants.API_KEY
+    ): MovieVideosResponse
 }

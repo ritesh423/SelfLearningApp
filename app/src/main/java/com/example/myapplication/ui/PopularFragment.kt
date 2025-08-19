@@ -91,16 +91,6 @@ class PopularFragment : Fragment() {
             }
         }
 
-        binding.chipGroupFilters.isSingleSelection = false
-
-        binding.chip98.setOnClickListener { chip ->
-            (chip as Chip).isChecked = !chip.isChecked
-            if (chip.isChecked) {
-                applyFilter("9.8+")
-            } else {
-                clearFilter()
-            }
-        }
 
 
         // Trigger load AFTER observer is set

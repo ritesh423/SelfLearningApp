@@ -9,7 +9,7 @@ import com.example.myapplication.repository.MovieRepository
 import kotlinx.coroutines.*
 
 sealed interface MoviesUiState {
-    object Loading : MoviesUiState
+    data object Loading : MoviesUiState
     data class Success(val data: List<Movie>) : MoviesUiState
     data class Error(val message: String) : MoviesUiState
 }
