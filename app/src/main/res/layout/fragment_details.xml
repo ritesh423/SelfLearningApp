@@ -1,85 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app  ="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- AppBar with collapsing backdrop -->
+    <!-- Collapsing AppBar with video/backdrop -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
+        android:layout_height="260dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary">
+            app:contentScrim="?attr/colorSurface"
+            app:scrimAnimationDuration="300"
+            app:expandedTitleMarginStart="16dp"
+            app:expandedTitleMarginEnd="16dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+            <!-- ExoPlayer (Media3) -->
+            <androidx.media3.ui.PlayerView
+                android:id="@+id/playerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:keepScreenOn="true"
+                app:use_controller="true"
+                app:show_subtitle_button="true"
+                app:layout_collapseMode="parallax"
+                tools:ignore="MissingClass" />
+
+            <!-- Fallback backdrop if there’s no playable URL -->
             <ImageView
                 android:id="@+id/ivBackdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"/>
+                android:visibility="gone"
+                app:layout_collapseMode="parallax" />
 
+            <!-- Soft gradient so titles/buttons remain legible on video/backdrop -->
+            <View
+                android:id="@+id/topScrim"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/scrim_top"
+                android:clickable="false"
+                android:focusable="false"
+                android:importantForAccessibility="no"
+                app:layout_collapseMode="parallax" />
+
+            <View
+                android:id="@+id/bottomScrim"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/scrim_bottom"
+                android:clickable="false"
+                android:focusable="false"
+                android:importantForAccessibility="no"
+                app:layout_collapseMode="parallax" />
+
+            <!-- Toolbar, pins when collapsed -->
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="?attr/homeAsUpIndicator"/>
+                app:navigationIcon="?attr/homeAsUpIndicator" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Scrollable content -->
+    <!-- Scrollable content below the AppBar -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:padding="16dp">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:padding="16dp"
             android:orientation="vertical"
-            android:divider="?attr/dividerVertical"
-            android:showDividers="middle">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <!-- Poster -->
-            <ImageView
-                android:id="@+id/ivPosterDetail"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:contentDescription="Movie Poster"/>
-
-            <!-- Title -->
+            <!-- Title + tagline -->
             <TextView
                 android:id="@+id/tvTitleDetail"
+                style="@style/TextAppearance.Material3.HeadlineSmall"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_marginTop="8dp"/>
+                android:layout_height="wrap_content" />
 
-            <!-- Tagline -->
             <TextView
                 android:id="@+id/tvTaglineDetail"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?attr/colorOutline"
+                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:layout_marginBottom="12dp"/>
+                android:layout_height="wrap_content" />
 
-            <!-- Rating + votes -->
+            <!-- Rating / votes -->
             <LinearLayout
+                android:layout_marginTop="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+                android:orientation="horizontal">
 
                 <RatingBar
                     android:id="@+id/ratingBar"
@@ -89,35 +117,35 @@
                     android:numStars="5"
                     android:stepSize="0.1"
                     android:isIndicator="true"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_marginEnd="8dp" />
 
                 <TextView
                     android:id="@+id/tvRatingCount"
+                    style="@style/TextAppearance.Material3.LabelLarge"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.MaterialComponents.Body2"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Release date & runtime -->
+            <!-- Release & runtime -->
             <LinearLayout
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvReleaseDate"
+                    style="@style/TextAppearance.Material3.BodyMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    style="@style/TextAppearance.MaterialComponents.Body2"/>
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/tvRuntime"
+                    style="@style/TextAppearance.Material3.BodyMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    style="@style/TextAppearance.MaterialComponents.Body2"/>
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <!-- Genres -->
@@ -125,25 +153,48 @@
                 android:id="@+id/chipGroupGenres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
                 app:singleLine="true"
-                app:chipSpacing="8dp"/>
+                app:chipSpacingHorizontal="8dp" />
 
-            <!-- Overview header -->
-            <TextView
-                android:id="@+id/tvOverviewHeader"
+            <!-- Actions -->
+            <LinearLayout
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:text="Overview"
-                android:layout_marginBottom="4dp"/>
+                android:orientation="horizontal">
 
-            <!-- Overview body -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnWatchTrailer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Watch trailer"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_play_arrow"
+                    app:iconGravity="textStart" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="Share" />
+            </LinearLayout>
+
+            <!-- Overview -->
+            <TextView
+                android:layout_marginTop="16dp"
+                style="@style/TextAppearance.Material3.TitleMedium"
+                android:text="Overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/tvOverview"
+                android:layout_marginTop="4dp"
+                style="@style/TextAppearance.Material3.BodyMedium"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Body2"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

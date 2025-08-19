@@ -69,6 +69,7 @@ dependencies {
     // If this project uses any Kotlin source, use Kotlin Symbol Processing (KSP)
     // See Add the KSP plugin to your project
     kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
 
     // If this project only uses Java source, use the Java annotationProcessor
     // No additional plugins are necessary
@@ -76,6 +77,11 @@ dependencies {
 
     //Shimmer
     implementation(libs.shimmer)
+
+    //Exo player
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.common)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

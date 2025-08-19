@@ -3,6 +3,7 @@ package com.example.myapplication.repository
 import com.example.myapplication.data.model.Movie
 import com.example.myapplication.data.model.MovieDetailsResponse
 import com.example.myapplication.data.model.MovieSearchResponse
+import com.example.myapplication.data.model.MovieVideo
 import com.example.myapplication.data.network.NewsApi
 
 //import com.example.myapplication.database.ArticleDatabase
@@ -34,10 +35,26 @@ class MovieRepository(
         discoverByCompany(companyId, page)
     }
 
+    suspend fun getMovieVideos(movieId: Int) = apiService.getMovieVideos(movieId)
 
-//    suspend fun upsert(article : Movie) = db.getArticleDAO().upsert(article)
-//
-//    fun getFavoriteMovies() = db.getArticleDAO().getAllArticles()
-//
-//    suspend fun deletArticle(article: Movie) = db.getArticleDAO().deleteArticle(article)
+    suspend fun pickBestTrailer(movieId: Int): MovieVideo? {
+        val vids = getMovieVideos(movieId).results
+        return vids.firstOrNull { it.type.equals("Trailer", true) && it.official }
+            ?: vids.firstOrNull { it.type.equals("Trailer", true) }
+            ?: vids.firstOrNull()
+    }
+
+    /**
+     * If you have a direct MP4/HLS URL for your trailer, return it here.
+     * TMDB usually gives YouTube keys -> return null to trigger YouTube fallback.
+     */
+    suspend fun resolvePlayableUrl(video: MovieVideo?): String? {
+        if (video == null) return null
+        return when (video.site.lowercase()) {
+            "youtube" -> null
+            "vimeo"   -> null
+            else      -> null
+        }
+    }
+
 }
